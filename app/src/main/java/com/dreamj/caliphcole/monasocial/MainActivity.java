@@ -35,6 +35,7 @@ public class MainActivity extends ActionBarActivity
     private Sas sasFragment;
     private UwiEmail emailFragment;
     private Navigation navFragment;
+    private Details detailFragment;
 
 
 
@@ -59,6 +60,7 @@ public class MainActivity extends ActionBarActivity
             sasFragment = Sas.newInstance(2,getString(R.string.title_section3));
             emailFragment = UwiEmail.newInstance(3,getString(R.string.title_section4));
             navFragment = Navigation.newInstance(4,getString(R.string.title_section5));
+            detailFragment = Details.newInstance(5,"details");
         }
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -108,6 +110,7 @@ public class MainActivity extends ActionBarActivity
                 if (sasFragment.isAdded()) {  ft0.hide(sasFragment); }
                 if (emailFragment.isAdded()) {  ft0.hide(emailFragment); }
                 if (navFragment.isAdded()) {  ft0.hide(navFragment); }
+                if (detailFragment.isAdded()) { ft0.hide(detailFragment); }
 
 
                 ft0.commit();}catch(NullPointerException e){
@@ -408,6 +411,27 @@ public class MainActivity extends ActionBarActivity
             }
 
 
+        }else if(id == R.id.actionDetails){
+            try{
+
+                FragmentManager detailfragment = getSupportFragmentManager();
+                FragmentTransaction deatailstransaction = detailfragment.beginTransaction();
+                if (detailFragment.isAdded()) { // if the fragment is already in container
+                    deatailstransaction.show(detailFragment);
+                } else { // fragment needs to be added to frame container
+                    deatailstransaction.add(R.id.container, detailFragment, UwiEmail.ARG_CATEGORY_NUMBER);
+                }
+                if (ourvleFragment.isAdded()) { deatailstransaction.hide(ourvleFragment); }
+                if (sasFragment.isAdded()) { deatailstransaction.hide(sasFragment); }
+                if (newsfeedFragment.isAdded()) { deatailstransaction.hide(newsfeedFragment); }
+                if (navFragment.isAdded()) { deatailstransaction.hide(navFragment); }
+
+                deatailstransaction.commit();
+
+            }catch (Exception e){
+
+                e.printStackTrace();
+            }
         }
 
         return super.onOptionsItemSelected(item);
